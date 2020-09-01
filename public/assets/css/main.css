@@ -42922,3 +42922,18 @@ pre {
     background-color: #ff914c;
     color: #000;
 }
+.read_for_tag {
+    margin-bottom: 10px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: #ff914c;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+.read_for_tag:hover {
+    background: #ff914c;
+    color: #fff;
+}

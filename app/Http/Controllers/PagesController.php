@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\TaggableTaggable;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -26,5 +27,13 @@ class PagesController extends Controller
         $id = Hashids::connection('post')->decode($post_id)[0];
         $post = Post::find($id);
         return view('pages.share_post', compact('post'));
+    }
+
+    public function tags_post($tag_id)
+    {
+        $posts = TaggableTaggable::where(["tag_id" => $tag_id])->get();
+        
+        
+        return view('pages.tags_post',compact('posts'));
     }
 }

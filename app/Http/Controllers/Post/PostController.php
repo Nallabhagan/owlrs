@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post;
 
 use App\Comment;
 use App\Hoot;
+use App\TaggableTaggable;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
@@ -73,6 +74,7 @@ class PostController extends Controller
 
         $delete_comment = Comment::where(["post_id" => $post_id])->delete();
         $delete_hoot = Hoot::where(["post_id" => $post_id])->delete();
+        $delete_tagging = TaggableTaggable::where([["taggable_id","=",$post_id],["taggable_type","=","App\Post"]])->delete();
         return $delete_post = Post::where(["id" => $post_id])->delete();
     }
 }

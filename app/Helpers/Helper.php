@@ -6,6 +6,8 @@ use App\Hoot;
 use App\Post;
 use App\User;
 use App\Comment;
+use App\TaggableTag;
+use App\TaggableTaggable;
 class Helper
 {
 	public static function username($id) {
@@ -58,6 +60,18 @@ class Helper
 	{
 		$comment_count = Hoot::select('user_id')->where(['post_id' => $id])->count();
 		return $comment_count;
+	}
+	public static function post_tag_id($id)
+	{
+		$tag = TaggableTaggable::select('tag_id')->where([["taggable_id","=",$id],["taggable_type","=","App\Post"]])->first();
+		return $tag;
+	}
+
+
+	public static function tag_name($id)
+	{
+		$tag_name = TaggableTag::select('name')->where(['tag_id' => $id])->first();
+		return $tag_name->name;
 	}
 }
 ?>

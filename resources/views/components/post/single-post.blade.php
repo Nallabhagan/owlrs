@@ -50,8 +50,12 @@
         <div class="card-body">
             <!-- Post body text -->
             <div class="post-text">
+                
+                @if(Helper::post_tag_id($post->id) != NULL)
+                    <a class="read_for_tag" href="{{ url('click') }}/{{ Helper::post_tag_id($post->id)->tag_id }}">Read for: {{ Helper::tag_name(Helper::post_tag_id($post->id)->tag_id) }}</a>
+                @endif
+                <p class="has-text-black mt-3">{{ $post->description }}</p>
                 <p class="has-text-danger font-weight-bold">Source: {{ $post->book_source }}</p>
-                <p class="has-text-black">{{ $post->description }}</p>
             </div>
             <!-- Featured image -->
             <div class="post-image">

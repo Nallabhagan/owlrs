@@ -32,6 +32,7 @@ Route::group(['prefix' => 'post', 'middleware' => ['auth','verified']], function
 	Route::post('readfor_list', 'AutoCompleteController@readfor_list')->name('readfor_list');
 });
 	Route::get('post/{post_id}', 'PagesController@single_post');
+	Route::get('click/{tag_id}', 'PagesController@tags_post');
 //End Post Routes
 
 

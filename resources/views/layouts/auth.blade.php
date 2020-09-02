@@ -15,9 +15,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <!-- Core CSS -->
-    <link rel="stylesheet" href="assets/css/bulma.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{{ url('assets/css/bulma.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/core.css') }}">
 </head>
 
 <body class="is-white">
@@ -37,6 +37,16 @@
     <script src="assets/data/tipuedrop_content.js"></script>
     <script src="assets/js/global.js"></script>
     <script src="assets/js/main.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176159065-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-176159065-1');
+    </script>
+
 </body>
 
 </html>

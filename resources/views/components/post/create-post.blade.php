@@ -11,36 +11,31 @@
             <div class="flex-block modal-trigger box-shadow" data-modal="create-modal">
                 <img src="{{ Helper::profilepic(Auth::id()) }}">
                 <div class="flex-block-meta">
-                    <span>Create Post</span>
+                    <span>Post a click</span>
                 </div>
                 
             </div>
         </div>
     @else
+        
         <a href="{{ url('email/verify') }}" class="create-post">
-            <div class="flex-block box-shadow">
+            <div class="flex-block modal-trigger box-shadow" data-modal="create-modal">
                 <img src="{{ Helper::profilepic(Auth::id()) }}">
                 <div class="flex-block-meta">
-                    <span>Create Post</span>
-                   
+                    <span>Post a click</span>
                 </div>
-                <div class="go-button">
-                    <i data-feather="arrow-right"></i>
-                </div>
+                
             </div>
         </a>
     @endif
 @else
     <a href="{{ url('login') }}" class="create-post">
-        <div class="flex-block box-shadow">
+        <div class="flex-block modal-trigger box-shadow" data-modal="create-modal">
             <img src="{{ url('assets/img/profile_pics/user.jpg') }}">
             <div class="flex-block-meta">
-                <span>Create Post</span>
-               
+                <span>Post a click</span>
             </div>
-            <div class="go-button">
-                <i data-feather="arrow-right"></i>
-            </div>
+            
         </div>
     </a>
 @endauth
@@ -54,7 +49,7 @@
             <form id="upload_form" method="POST" class="card" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 <div class="card-heading">
-                    <h3>Create Post</h3>
+                    <h3>Post a click</h3>
 
                     <!-- Close X button -->
                     <div class="close-wrap">

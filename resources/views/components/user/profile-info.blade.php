@@ -9,19 +9,22 @@
             </div>
             <div class="user-info ml-5">
                 <h4 style="text-align: center;">
-                    <span class="mt-3 is-size-6" style="vertical-align: center;align-items: center;"><i class="mdi mdi-eye"></i><i class="mdi mdi-eye"></i></span>
                     OWLR
                 </h4>
                 <h4>{{ Helper::username($id) }}</h4>
                 
                 @if(Auth::id() != $id)
-                    <div class="actions" id="follow_status">
-                        @if(Helper::follow_check(Auth::id(),$id))
-                            
-                            <button data-id="{{ Hashids::connection('user')->encode($id) }}" class="unfollow button is-solid primary-button raised font-weight-bold">Following</button>
+                    <div class="actions" id="follow_status{{ Hashids::connection('user')->encode($id) }}">
+                        @auth
+                            @if(Helper::follow_check(Auth::id(),$id))
+                                
+                                <button data-id="{{ Hashids::connection('user')->encode($id) }}" class="unfollow button is-solid primary-button raised font-weight-bold">Following</button>
+                            @else
+                                <button data-id="{{ Hashids::connection('user')->encode($id) }}" class="follow button is-solid primary-button raised font-weight-bold">Follow</button>
+                            @endif
                         @else
-                            <button data-id="{{ Hashids::connection('user')->encode($id) }}" class="follow button is-solid primary-button raised font-weight-bold">Follow</button>
-                        @endif
+                            <a href="{{ url('login') }}" class="button is-solid primary-button raised font-weight-bold">Follow</a>
+                        @endauth
                         
                     </div>
                 @endif

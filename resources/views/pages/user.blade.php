@@ -29,27 +29,35 @@
                         <div class="profile-about side-menu">
                             <div class="left-menu">
                                 <div class="left-menu-inner box-shadow border">
-                                    <div class="menu-item is-active" data-content="overview-content">
-                                        <div class="menu-icon">
-                                            <i class="mdi mdi-progress-check"></i>
-                                            <span>Personal Info</span>
-                                        </div>
-                                    </div>
-                                    <div class="menu-item" data-content="personal-content">
+                                    <div class="menu-item is-active" data-content="personal-content">
                                         <div class="menu-icon">
                                             <i class="mdi mdi-apps"></i>
                                             <span>Clicks</span>
                                         </div>
                                     </div>
+                                    <div class="menu-item" data-content="overview-content">
+                                        <div class="menu-icon">
+                                            <i class="mdi mdi-progress-check"></i>
+                                            <span>About</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="menu-item" data-content="followers-content">
+                                        <div class="menu-icon">
+                                            <i class="mdi mdi-account-group"></i>
+                                            <span>Followers</span>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="right-content">
-                                <div id="overview-content" class="content-section is-active">
+                                <div id="overview-content" class="content-section">
                                     <x-user.user-favourites id="{{ $user_id }}"/>
                                 </div>
             
                                 
-                                <div id="personal-content" class="content-section">
+                                <div id="personal-content" class="content-section is-active">
                                     <div class="columns">
                                         <div class="column is-8">
                                             <x-post.create-post />
@@ -57,6 +65,12 @@
                                                 <x-post.single-post id="{{ $post->id }}"/>
                                             @endforeach
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div id="followers-content" class="content-section">
+                                    <div class="columns is-multiline">
+                                        <x-user.followers-list id="{{ $user_id }}"/>
                                     </div>
                                 </div>
                             </div>

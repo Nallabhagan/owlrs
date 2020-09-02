@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@welcome')->middleware(["auth","verified"]);
+Route::get('/', 'PagesController@welcome');
 
 Auth::routes(['verify' => true]);
 Route::get('login/google', 'Auth\SocialMediaAuthController@redirectToProvider');
@@ -21,7 +21,6 @@ Route::get('login/google/callback', 'Auth\SocialMediaAuthController@handleProvid
 Route::get('login/facebook', 'Auth\SocialMediaAuthController@redirectToFbProvider');
 Route::get('login/facebook/callback', 'Auth\SocialMediaAuthController@handleFbProviderCallback');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 //Post Routes
 Route::group(['prefix' => 'post', 'middleware' => ['auth','verified']], function () {
@@ -54,3 +53,8 @@ Route::get('notifications/markAsRead', function(){
 	auth()->user()->unreadNotifications->markAsRead();
 	return redirect()->back();
 })->name('markRead');
+
+//Route Any Unwanted Link
+Route::any('{query}', 
+  function() { return redirect('/'); })
+  ->where('query', '.*');

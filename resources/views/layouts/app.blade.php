@@ -18,7 +18,7 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="{{ url('assets/css/bulma.css') }}">
         <link rel="stylesheet" href="{{ url('assets/css/app.css') }}">
-        <link rel="stylesheet" href="{{ url('assets/css/main.css') }}">
+        <link rel="stylesheet" href="{{ url('assets/css/core.css') }}">
         <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 
         <!-- Concatenated js plugins and jQuery -->
@@ -68,5 +68,15 @@
         <script src="{{ url('assets/js/tour.js') }}"></script>   
         @section('scripts') 
         @show
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176159065-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'UA-176159065-1');
+        </script>
+
     </body>
 </html>

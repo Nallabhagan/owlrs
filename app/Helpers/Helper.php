@@ -16,8 +16,17 @@ class Helper
 	}
 
 	public static function profilepic($id) {
+		
 		$user = User::select('profile_pic')->where(["id" => $id])->first();
-		return $user->profile_pic;
+
+		if(filter_var($user->profile_pic, FILTER_VALIDATE_URL))
+		{
+		    return $user->profile_pic;
+		}
+		else
+		{
+			return url('assets/profile_pics')."/".$user->profile_pic;
+		}
 	}
 
 	public static function hoot_check($userid,$postid)

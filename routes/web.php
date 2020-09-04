@@ -44,6 +44,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth','verified']], function
 	Route::post('favourite_author', 'Profile\UserFavouritesController@update_author')->name('favourite_author');
 	Route::post('favourite_book', 'Profile\UserFavouritesController@update_book')->name('favourite_book');
 	Route::post('favourite_quote', 'Profile\UserFavouritesController@update_quote')->name('favourite_quote');
+
+	Route::post('update_profile_pic', 'Profile\ProfileSettingsController@profile_pic')->name('update_profile_pic');
 });
 //End Profile Routes
 

@@ -1,26 +1,28 @@
+
 <div class="card-footer">
     <!-- Followers avatars -->
     <div class="likers-group">
-        @if(count($hoots) !=0 )
-            @foreach($hoots as $hoot)
-               <img src="{{ Helper::profilepic($hoot->user_id) }}">
-            @endforeach
+        @if(count($hoots) != 0 )
+            <img src="{{ Helper::profilepic($hoots[0]->user_id) }}">
         @endif
     </div>
     <!-- Followers text -->
     <div class="likers-text">
         @if(count($hoots) != 0)
             <p>
-                @foreach($hoots as $hoot)
-                    <a href="{{ url('user') }}/{{ Hashids::connection('user')->encode($hoot->user_id) }}">{{ Helper::username($hoot->user_id) }}</a>,
-                @endforeach
+                <a href="{{ url('user') }}/{{ Hashids::connection('user')->encode($hoots[0]->user_id) }}">
+                    {{ Helper::username($hoots[0]->user_id) }}
+                </a>
+                @if(count($hoots) == 1)
+                    hooted this
+                @endif
             </p>
-            @if(Helper::hoot_count($id) > 2)
-                <p>and {{ Helper::hoot_count($id)-2 }} more </p>
+            @if(count($hoots) > 1)
+                <p>and <a href="javascript:void(0);" data-hooted-popover="8" class="drop-trigger">{{ count($hoots)-1 }} more</a> hooted this</p>
+
+
             @endif
-             hooted this
-        @else
-            <p>No one hooted this click</p>
+             
         @endif
         
     </div>
@@ -39,3 +41,59 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('*[data-hooted-popover]').each(function () {
+        var e = $(this);
+
+        e.webuiPopover({
+            trigger: 'hover',
+            placement: 'auto',
+            width: 300,
+            padding: false,
+            offsetLeft: 0,
+            offsetTop: 20,
+            animation: 'pop',
+            cache: false,
+            content: function () {
+
+                var destroyLoader = setTimeout(function () {
+                    $('.loader-overlay').removeClass('is-active');
+                }, 1000);
+
+
+                var html = `
+                    <div class="card" style="box-shadow:none;border:0px;margin-bottom:0px;">
+                        <div class="card-body" style="padding: 5px 0px;">
+                            @php
+                                //to omit first user who hooted this
+                                $flag = 0;
+                            @endphp
+                            @foreach($hoots as $hoot)
+                                @if($flag != 0)
+                                    <div class="hooted_people">
+                                        <div class="img-wrapper">
+                                            <img src="{{ Helper::profilepic($hoot->user_id) }}">
+                                        </div>
+                                        <div class="story-meta">
+                                            <p><a href="{{ url('user') }}/{{ Hashids::connection('user')->encode($hoot->user_id) }}">{{ Helper::username($hoot->user_id) }}</a></p>
+                                            <p>{{ $hoot->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                @php
+                                    $flag++;
+                                @endphp
+                            @endforeach
+                        </div>
+                    </div>
+                `;
+
+                return html;
+                return destroyLoader;
+
+            }
+        });
+    });
+
+
+</script>

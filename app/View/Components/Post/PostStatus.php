@@ -25,7 +25,7 @@ class PostStatus extends Component
      */
     public function render()
     {
-        $hoots = Hoot::inRandomOrder()->select('user_id')->where(["post_id" => $this->id])->limit(2)->get();
+        $hoots = Hoot::inRandomOrder()->select('user_id','created_at')->where(["post_id" => $this->id])->get();
         return view('components.post.post-status', compact('hoots'));
     }
 }

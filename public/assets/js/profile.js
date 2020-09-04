@@ -141,7 +141,8 @@ $(document).ready(function () {
       $('.album-image-grid').addClass('is-hidden');
       $('#' + targetPhotos).removeClass('is-hidden');
     }
-  }); //Cover image cropper
+  }); 
+  //Cover image cropper
 
   if ($('#upload-cover').length) {
     var readCoverFile = function readCoverFile(input) {
@@ -219,82 +220,12 @@ $(document).ready(function () {
       $('#submit-cover-picture').addClass('is-disabled');
       $('#upload-cover-picture').val('');
     });
-  } //Pofile picture cropper
+  } 
+  //Pofile picture cropper
 
 
-  if ($('#upload-profile').length) {
-    var readFile = function readFile(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $uploadCrop.croppie('bind', {
-            url: e.target.result
-          }).then(function () {
-            imgSrc = e.target.result;
-            console.log('jQuery bind complete');
-          });
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      } else {
-        swal("Sorry - you're browser doesn't support the FileReader API");
-      }
-    };
-
-    var popupResult = function popupResult(result) {
-      var html;
-
-      if (result.html) {
-        html = result.html;
-      }
-
-      if (result.src) {
-        html = '<img src="' + result.src + '" />';
-        $('.cover-bg .avatar .avatar-image, #user-avatar-minimal').attr('src', result.src);
-        $('#submit-profile-picture').removeClass('is-loading');
-        $('#upload-crop-profile-modal').removeClass('is-active');
-      }
-    };
-
-    var imgSrc = '';
-    var $uploadCrop = $('#upload-profile').croppie({
-      enableExif: true,
-      url: 'assets/img/demo/placeholder.png',
-      viewport: {
-        width: 130,
-        height: 130,
-        type: 'circle'
-      },
-      boundary: {
-        width: '100%',
-        height: 300
-      }
-    });
-    $('#upload-profile-picture').on('change', function () {
-      readFile(this);
-      $(this).closest('.modal').find('.profile-uploader-box, .upload-demo-wrap, .profile-reset').toggleClass('is-hidden');
-      $('#submit-profile-picture').removeClass('is-disabled');
-    });
-    $('#submit-profile-picture').on('click', function (ev) {
-      var $this = $(this);
-      $this.addClass('is-loading');
-      $uploadCrop.croppie('result', {
-        type: 'canvas',
-        size: 'viewport'
-      }).then(function (resp) {
-        popupResult({
-          src: resp
-        });
-      });
-    });
-    $('#profile-upload-reset').on('click', function () {
-      $(this).addClass('is-hidden');
-      $('.profile-uploader-box, .upload-demo-wrap').toggleClass('is-hidden');
-      $('#submit-profile-picture').addClass('is-disabled');
-      $('#upload-profile-picture').val('');
-    });
-  } //Nested photos
+  
+  //Nested photos
 
 
   $('.close-nested-photos').on('click', function () {

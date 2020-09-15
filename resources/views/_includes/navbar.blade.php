@@ -13,7 +13,11 @@
                         <i data-feather="home"></i> 
                     </a>
                 </div>
-                
+                <div class="navbar-item is-icon">
+                    <a class="icon-link is-primary @if (Request::path() == 'discover-people') is-active @endif" href="{{ url('discover-people') }}">
+                        <i data-feather="user"></i> 
+                    </a>
+                </div>
                 <x-navbar.notification />
                 
             </div>
@@ -91,6 +95,11 @@
         <div class="navbar-item is-icon">
             <a class="icon-link is-primary @if (Request::path() == '/') is-active @endif" href="{{ url('/') }}">
                 <i data-feather="home"></i> 
+            </a>
+        </div>
+        <div class="navbar-item is-icon">
+            <a class="icon-link is-primary @if (Request::path() == 'discover-people') is-active @endif" href="{{ url('discover-people') }}">
+                <i data-feather="user"></i> 
             </a>
         </div>
         <x-navbar.notification />

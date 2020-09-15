@@ -7,7 +7,7 @@
                     <img class="avatar" src="{{ Helper::profilepic($follower->user_id) }}">
                     
                 </div>
-                <a href="{{ Hashids::connection('user')->encode($follower->user_id) }}" class="friend-info">
+                <a href="{{ url("user") }}/{{ Hashids::connection('user')->encode($follower->user_id) }}" class="friend-info">
                     <h3>{{ Helper::username($follower->user_id) }}</h3>
                 </a>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use App\TaggableTaggable;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
@@ -32,8 +33,12 @@ class PagesController extends Controller
     public function tags_post($tag_id)
     {
         $posts = TaggableTaggable::where(["tag_id" => $tag_id])->get();
-        
-        
         return view('pages.tags_post',compact('posts'));
+    }
+
+    public function discover_people()
+    {
+        $users = User::inRandomOrder()->select("id")->limit(15)->get();
+        return view('pages.discover_people',compact('users'));
     }
 }

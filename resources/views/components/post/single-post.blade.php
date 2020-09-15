@@ -37,6 +37,15 @@
                                         </div>
                                     </div>
                                 </a>
+                                <a role="button" class="dropdown-item modal-trigger" data-modal="edit-modal{{ Hashids::connection('post')->encode($post->id) }}">
+                                    <div class="media">
+                                        <i data-feather="edit-2"></i>
+                                        <div class="media-content">
+                                            <h3>Edit</h3>
+                                            <small>Edit your click.</small>
+                                        </div>
+                                    </div>
+                                </a>
                                 
                             </div>
                         </div>
@@ -51,11 +60,14 @@
             <!-- Post body text -->
             <div class="post-text">
                 
-                @if(Helper::post_tag_id($post->id) != NULL)
-                    <a class="read_for_tag" href="{{ url('click') }}/{{ Helper::post_tag_id($post->id)->tag_id }}">Read for: {{ Helper::tag_name(Helper::post_tag_id($post->id)->tag_id) }}</a>
-                @endif
-                <p class="has-text-black mt-3">{{ $post->description }}</p>
-                <p class="has-text-danger font-weight-bold">Source: {{ $post->book_source }}</p>
+                <div id="tag{{ Hashids::connection('post')->encode($post->id) }}">
+                    @if(Helper::tag_check($post->id))
+                        <a class="read_for_tag" href="{{ url('click') }}/{{ Helper::post_tag_id($post->id) }}">{{ Helper::tag_name(Helper::post_tag_id($post->id)) }}</a>
+                    @endif
+                </div>
+                
+                <p id="description{{ Hashids::connection('post')->encode($post->id) }}" class="has-text-black mt-3">{{ $post->description }}</p>
+                <p id="source{{ Hashids::connection('post')->encode($post->id) }}" class="has-text-danger font-weight-bold">Source: {{ $post->book_source }}</p>
             </div>
             <!-- Featured image -->
             <div class="post-image">
@@ -115,4 +127,87 @@
 </div>
 <!-- POST #1 -->
 <x-post.post-share-pop-up id="{{ $post->id }}" />
+@auth
+    <div id="edit-modal{{ Hashids::connection('post')->encode($post->id) }}" class="modal share-modal is-xsmall has-light-bg">
+        <div class="modal-background"></div>
+        <div class="modal-content">
 
+            <form id="edit_form{{ Hashids::connection('post')->encode($post->id) }}" method="POST" class="card" enctype="multipart/form-data" autocomplete="off">
+                @csrf
+                <div class="card-heading">
+                    <h3>Edit click </h3>
+
+                    <!-- Close X button -->
+                    <div class="close-wrap">
+                        <span class="close-modal">
+                            <i data-feather="x"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="field">
+                        <label>Source of Click <small class="has-text-danger-dark">(name of book/publication/online article)</small></label>
+                        <div class="control">
+                            <input type="text" class="input" placeholder="Say source of the click ..." name="source_of_book" id="source_of_book" value="{{ $post->book_source }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Description</label>
+                        <div class="control">
+                            <input type="text" class="input" placeholder="Write Something {{ Auth::user()->name }}" name="description" id="source_of_book" value="{{ $post->description }}" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    
+                    <div class="button-wrap">
+                        <input type="hidden" name="post_token" value="{{ Hashids::connection("post")->encode($post->id) }}">
+                        <button type="button" id="edit_cancel_btn{{ Hashids::connection('post')->encode($post->id) }}" class="button is-solid dark-grey-button close-modal">Cancel</button>
+                        <button type="submit" id="change_edit_action{{ Hashids::connection('post')->encode($post->id) }}" class="button is-solid primary-button">Edit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+@endauth
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+
+        
+        $('#edit_form{{ Hashids::connection('post')->encode($post->id) }}').on('submit', function(event){
+            event.preventDefault();
+            $("#edit_cancel_btn{{ Hashids::connection('post')->encode($post->id) }}").css("display","none");
+            $("#change_edit_action{{ Hashids::connection('post')->encode($post->id) }}").attr("disabled","disabled");
+            $("#change_edit_action{{ Hashids::connection('post')->encode($post->id) }}").html("Loading...");
+            $.ajax({
+                url:"{{ route('edit') }}",
+                method:"POST",
+                data:new FormData(this),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(data)
+                {
+                    if(data.message)
+                    {
+                        $("#source{{ Hashids::connection('post')->encode($post->id) }}").html(data.source);
+                        $("#description{{ Hashids::connection('post')->encode($post->id) }}").html(data.description);
+                        
+                        $(".close-modal").trigger("click");
+                        $("#edit_cancel_btn{{ Hashids::connection('post')->encode($post->id) }}").css("display","inline-block");
+                        $("#change_edit_action{{ Hashids::connection('post')->encode($post->id) }}").removeAttr("disabled");
+                        $("#change_edit_action{{ Hashids::connection('post')->encode($post->id) }}").html("Edit");
+                    }
+                }
+            });
+        });
+
+    });
+    
+</script>

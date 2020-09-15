@@ -70,10 +70,20 @@ class Helper
 		$comment_count = Hoot::select('user_id')->where(['post_id' => $id])->count();
 		return $comment_count;
 	}
+
+	public static function tag_check($id)
+	{
+		$row = TaggableTaggable::select('tag_id')->where([["taggable_id","=",$id],["taggable_type","=","App\Post"]])->first();
+		if($row != null)
+		{
+			return true;
+		}
+	}
+
 	public static function post_tag_id($id)
 	{
 		$tag = TaggableTaggable::select('tag_id')->where([["taggable_id","=",$id],["taggable_type","=","App\Post"]])->first();
-		return $tag;
+		return $tag->tag_id;
 	}
 
 

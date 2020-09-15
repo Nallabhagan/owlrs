@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Post;
 
 use App\Comment;
 use App\Hoot;
-use App\TaggableTaggable;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\TaggableTag;
+use App\TaggableTaggable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,7 @@ class PostController extends Controller
         {
             $rules = array(
             	'source_of_book' => 'required',
+                'description' => 'required',
               	'clicked_image'  => 'required|image|max:2048'
             );
 
@@ -29,8 +31,8 @@ class PostController extends Controller
 
             if($error->fails())
             {
-                return redirect()->back()->withErrors(['errors' => $error->errors()->all()]);
-                // return response()->json(['errors' => $error->errors()->all()]);
+                
+                return response()->json(['errors' => $error->errors()->all()]);
             }
 
             $image = $request->file('clicked_image');
@@ -76,5 +78,34 @@ class PostController extends Controller
         $delete_hoot = Hoot::where(["post_id" => $post_id])->delete();
         $delete_tagging = TaggableTaggable::where([["taggable_id","=",$post_id],["taggable_type","=","App\Post"]])->delete();
         return $delete_post = Post::where(["id" => $post_id])->delete();
+    }
+
+    public function edit_post(Request $request)
+    {
+        $post_id = Hashids::connection('post')->decode($request->post_token)[0];
+        $rules = array(
+            'source_of_book' => 'required',
+            'description' => 'required'
+        );
+
+        $error = Validator::make($request->all(), $rules);
+
+        if($error->fails())
+        {
+            
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+        
+        $data = Post::where(["id" => $post_id])->update(["book_source" => $request->source_of_book,"description" => $request->description]);
+       
+        if($data)
+        {
+            
+            return response()->json([
+                'message' => true,
+                'source' => $request->source_of_book,
+                'description' => $request->description
+            ]);
+        }
     }
 }

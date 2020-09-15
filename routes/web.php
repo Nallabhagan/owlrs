@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@welcome');
+Route::get('discover-people', 'PagesController@discover_people')->middleware(["auth","verified"]);
 
 Auth::routes(['verify' => true]);
 Route::get('login/google', 'Auth\SocialMediaAuthController@redirectToProvider');
@@ -28,6 +29,7 @@ Route::group(['prefix' => 'post', 'middleware' => ['auth','verified']], function
 	Route::post('hoot', 'Post\HootController@hoot')->name('hoot-post');
 	Route::post('comment', 'Post\CommentsController@add_comment')->name('comments');
 	Route::post('delete', 'Post\PostController@delete_post')->name('delete');
+	Route::post('edit', 'Post\PostController@edit_post')->name('edit');
 	Route::post('readfor_list', 'AutoCompleteController@readfor_list')->name('readfor_list');
 });
 	Route::get('post/{post_id}', 'PagesController@single_post');

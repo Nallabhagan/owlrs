@@ -82,7 +82,7 @@
                 }
             });
         });
-
+        
     @endauth
     //Toggle comments
     $('.fab-wrapper.is-comment, .close-comments').on('click', function (e) {

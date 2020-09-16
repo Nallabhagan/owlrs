@@ -12,13 +12,13 @@ class PagesController extends Controller
 {
     public function welcome()
     {
-    	$posts = Post::orderBy('id', 'DESC')->get();
+    	$posts = Post::orderBy('id', 'DESC')->paginate(10);
     	return view('welcome', compact('posts'));
     }
 
     public function user_profile($user) {
     	$user_id = Hashids::connection('user')->decode($user)[0];
-    	$posts = Post::orderBy('id', 'DESC')->where(["user_id" => $user_id])->get();
+    	$posts = Post::orderBy('id', 'DESC')->where(["user_id" => $user_id])->paginate(10);;
         
     	return view('pages.user',compact('user_id', 'posts'));
     }

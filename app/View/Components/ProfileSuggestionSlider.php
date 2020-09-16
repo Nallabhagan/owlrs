@@ -24,7 +24,7 @@ class ProfileSuggestionSlider extends Component
      */
     public function render()
     {
-        $users = User::inRandomOrder()->select("id")->limit(8)->get();
+        $users = User::inRandomOrder()->select("id")->limit(15)->get();
         return view('components.profile-suggestion-slider', compact('users'));
     }
 }

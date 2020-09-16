@@ -10,7 +10,9 @@
                     <div class="item friend-card box-shadow border">
                         
                         <div class="img-container">
-                            <img class="avatar" src="{{ Helper::profilepic($user->id) }}">
+                            <a href="{{ url("user") }}/{{ Hashids::connection('user')->encode($user->id) }}">
+                                <img class="avatar" src="{{ Helper::profilepic($user->id) }}">
+                            </a>
                             
                         </div>
                         <a href="{{ url("user") }}/{{ Hashids::connection('user')->encode($user->id) }}" class="friend-info">

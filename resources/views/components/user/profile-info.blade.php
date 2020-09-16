@@ -1,7 +1,5 @@
 <div class="event-content">
     <div class="stats-wrapper">
-        <h2 class="p-2">I Am What I Read</h2>
-        
         <div class="stats-header">
             <div class="avatar-wrapper">
                 <img id="user-avatar-minimal" class="avatar" src="{{ Helper::profilepic($id) }}" style="position: relative;">

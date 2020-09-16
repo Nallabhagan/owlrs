@@ -41,6 +41,7 @@
                             @endif
                             <x-post.single-post id="{{ $post->id }}"/>
                         @endforeach
+                        {{ $posts->links() }}
                     </div>
                     <!-- /Middle column -->
         

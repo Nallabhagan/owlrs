@@ -16,6 +16,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
         <link href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
         <!-- Core CSS -->
         <link rel="stylesheet" href="{{ url('assets/css/bulma.css') }}">
         <link rel="stylesheet" href="{{ url('assets/css/app.css') }}">
@@ -25,6 +26,16 @@
         <!-- Concatenated js plugins and jQuery -->
         <script src="{{ url('assets/js/app.js') }}"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+        <script type="text/javascript" src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+        <style type="text/css">
+            .owl-nav {
+                text-align: center;
+                font-size:30px;
+            }
+            .owl-dots{
+                display: none;
+            }
+        </style>
     </head>
     <body>
 

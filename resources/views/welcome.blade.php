@@ -29,7 +29,16 @@
                     <!-- Middle column -->
                     <div class="column is-6">
                         <x-post.create-post />
+                        @php
+                            $i = 0;
+                        @endphp
                         @foreach($posts as $post)
+                            @php
+                                $i++;
+                            @endphp
+                            @if($i == 3)
+                                <x-profile-suggestion-slider />
+                            @endif
                             <x-post.single-post id="{{ $post->id }}"/>
                         @endforeach
                     </div>

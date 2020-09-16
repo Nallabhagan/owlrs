@@ -32,6 +32,7 @@
                     <!-- Middle column -->
                     <div class="column is-6">
                         <x-post.single-post id="{{ $post->id }}"/>
+                        <x-profile-suggestion-slider />
                     </div>
                     <!-- /Middle column -->
         

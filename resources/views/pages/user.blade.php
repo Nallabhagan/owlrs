@@ -61,7 +61,16 @@
                                     <div class="columns">
                                         <div class="column is-8">
                                             <x-post.create-post />
+                                            @php
+                                                $i = 0;
+                                            @endphp
                                             @foreach($posts as $post)
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                                @if($i == 3)
+                                                    <x-profile-suggestion-slider />
+                                                @endif
                                                 <x-post.single-post id="{{ $post->id }}"/>
                                             @endforeach
                                         </div>

@@ -14,8 +14,8 @@
                     </a>
                 </div>
                 <div class="navbar-item is-icon">
-                    <a class="icon-link is-primary @if (Request::path() == 'discover-people') is-active @endif" href="{{ url('discover-people') }}">
-                        <i data-feather="user"></i> 
+                    <a class="icon-link is-primary @if (Request::path() == 'reader_club/club_list') is-active @endif" href="{{ url('reader_club/club_list') }}">
+                        <i data-feather="users"></i> 
                     </a>
                 </div>
                 <x-navbar.notification />
@@ -98,8 +98,8 @@
             </a>
         </div>
         <div class="navbar-item is-icon">
-            <a class="icon-link is-primary @if (Request::path() == 'discover-people') is-active @endif" href="{{ url('discover-people') }}">
-                <i data-feather="user"></i> 
+            <a class="icon-link is-primary @if (Request::path() == 'reader_club/club_list') is-active @endif" href="{{ url('reader_club/club_list') }}">
+                <i data-feather="users"></i> 
             </a>
         </div>
         <x-navbar.notification />

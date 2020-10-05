@@ -12,48 +12,54 @@
     <img src="{{ url('assets/img/cover_1600x460.jpg') }}" class="banner">
     <div class="view-wrapper pt-0">
         <!-- Container -->
-        <div id="main-feed" class="container">
-            
-            <!-- Content placeholders at page load -->
-            <!-- this holds the animated content placeholders that show up before content -->
-            @include('_includes.shadow_loader')
-            <!-- Feed page main wrapper -->
-            <div id="activity-feed" class="view-wrap true-dom is-hidden">
+        <div id="posts-feed" class="container">
+            <div class="posts-feed-wrapper pt-4">
                 <div class="columns">
-                    <!-- Left side column -->
+                    
                     <div class="column is-3 is-hidden-mobile">
                                   
                     </div>
-                    <!-- /Left side column -->
-        
-                    <!-- Middle column -->
+                    
+                
+                    
                     <div class="column is-6">
                         <x-post.create-post />
-                        @php
-                            $i = 0;
-                        @endphp
-                        @foreach($posts as $post)
-                            @php
-                                $i++;
-                            @endphp
-                            @if($i == 3)
-                                <x-profile-suggestion-slider />
-                            @endif
+                    </div>
+
+                    <div class="column is-3 is-hidden-mobile">
+                                  
+                    </div>
+
+                </div>
+                
+                <div class="columns is-multiline">
+                    <!--Post-->
+                    @foreach($posts as $post)
+                        <div class="column is-4 is-flex">
                             <x-post.single-post id="{{ $post->id }}"/>
-                        @endforeach
+                        </div>
+                        
+                    @endforeach
+                    
+                </div>
+                <div class="columns">
+                    
+                    <div class="column is-3 is-hidden-mobile">
+                                  
+                    </div>
+                    
+                
+                    
+                    <div class="column is-6">
                         {{ $posts->links() }}
                     </div>
-                    <!-- /Middle column -->
-        
-                    <!-- Right side column -->
-                    <div class="column is-3">
-        
-                        
+
+                    <div class="column is-3 is-hidden-mobile">
+                                  
                     </div>
-                    <!-- /Right side column -->
+
                 </div>
             </div>
-            <!-- /Feed page main wrapper -->
         </div>
         <!-- /Container -->
     </div>

@@ -1,7 +1,7 @@
 <!-- Post 1 -->
 <!-- /partials/pages/feed/posts/feed-post1.html -->
 <!-- POST #1 -->
-<div id="feed-post{{ Hashids::connection('post')->encode($post->id) }}" class="card is-post box-shadow">
+<div id="feed-post{{ Hashids::connection('post')->encode($post->id) }}" class="card is-post box-shadow" style="width: 100%;">
     <!-- Main wrap -->
     <div class="content-wrap">
         <!-- Post header -->
@@ -65,53 +65,62 @@
                         <a class="read_for_tag" href="{{ url('click') }}/{{ Helper::post_tag_id($post->id) }}">{{ Helper::tag_name(Helper::post_tag_id($post->id)) }}</a>
                     @endif
                 </div>
+
+                @if(Helper::club_post_check($post->id))
+                    <a class="read_for_tag" href="{{ url('reader_club') }}/{{ Helper::club_info(Helper::post_club_id($post->id))["slug"] }}">{{ Helper::club_info(Helper::post_club_id($post->id))["name"] }}</a>
+                @endif
                 
                 <p id="description{{ Hashids::connection('post')->encode($post->id) }}" class="has-text-black mt-3">{{ $post->description }}</p>
                 <p id="source{{ Hashids::connection('post')->encode($post->id) }}" class="has-text-danger font-weight-bold">Source: {{ $post->book_source }}</p>
             </div>
             <!-- Featured image -->
             <div class="post-image">
-                <a data-fancybox="" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/1.jpg" href="{{ url('assets/book_clicks') }}/{{ $post->book_click }}" data-demo-href="assets/img/demo/unsplash/1.jpg">
-                    <img src="{{ url('assets/book_clicks') }}/{{ $post->book_click }}" data-demo-src="{{ url('assets/book_clicks') }}/{{ $post->book_click }}" alt="">
-                </a>
+                <div class="post-image-thumbnail">
+                    
+                    <a data-fancybox="" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/1.jpg" href="{{ url('assets/book_clicks') }}/{{ $post->book_click }}" data-demo-href="assets/img/demo/unsplash/1.jpg">
+                        <img src="{{ url('assets/book_clicks') }}/{{ $post->book_click }}" data-demo-src="{{ url('assets/book_clicks') }}/{{ $post->book_click }}" alt="" style="width: 100%;height: 100%;">
+                    </a>
+                </div>
                 <!-- Action buttons -->
                 <!-- /partials/pages/feed/buttons/feed-post-actions.html -->
-                <div class="like-wrapper">
+                <div style="position: relative;">
+                    <div class="like-wrapper">
 
-                    @auth
-                        @if(Helper::hoot_check(Auth::id(),$post->id))
-                            <a role="button" class="like-button is-active" post-token="{{ Hashids::connection('post')->encode($post->id) }}" hoot_type="UnHoot">
-                                
-                                <i class="mdi mdi-thumb-up not-liked bouncy"></i>
-                                <i class="mdi mdi-thumb-up is-liked bouncy"></i>
-                                <span class="like-overlay"></span>
-                            </a>
+                        @auth
+                            @if(Helper::hoot_check(Auth::id(),$post->id))
+                                <a role="button" class="like-button is-active" post-token="{{ Hashids::connection('post')->encode($post->id) }}" hoot_type="UnHoot">
+                                    
+                                    <i class="mdi mdi-thumb-up not-liked bouncy"></i>
+                                    <i class="mdi mdi-thumb-up is-liked bouncy"></i>
+                                    <span class="like-overlay"></span>
+                                </a>
+                            @else
+                                <a role="button" class="like-button" post-token="{{ Hashids::connection('post')->encode($post->id) }}" hoot_type="Hoot">
+                                    <i class="mdi mdi-thumb-up not-liked bouncy"></i>
+                                    <i class="mdi mdi-thumb-up is-liked bouncy"></i>
+                                    <span class="like-overlay"></span>
+                                </a>
+                            @endif
                         @else
-                            <a role="button" class="like-button" post-token="{{ Hashids::connection('post')->encode($post->id) }}" hoot_type="Hoot">
+                            <a href="{{ url('login') }}" class="like-button">
                                 <i class="mdi mdi-thumb-up not-liked bouncy"></i>
-                                <i class="mdi mdi-thumb-up is-liked bouncy"></i>
                                 <span class="like-overlay"></span>
                             </a>
-                        @endif
-                    @else
-                        <a href="{{ url('login') }}" class="like-button">
-                            <i class="mdi mdi-thumb-up not-liked bouncy"></i>
-                            <span class="like-overlay"></span>
+                        @endauth
+                    </div>
+                    
+                    <div class="fab-wrapper is-share">
+                        <a href="javascript:void(0);" class="small-fab share-fab modal-trigger" data-modal="social-share{{ Hashids::connection('post')->encode($post->id) }}">
+                            <i data-feather="share-2"></i>
                         </a>
-                    @endauth
+                    </div>
+                    
+                    <div class="fab-wrapper is-comment">
+                        <a class="small-fab">
+                            <i data-feather="message-circle"></i>
+                        </a>
+                    </div>            
                 </div>
-                
-                <div class="fab-wrapper is-share">
-                    <a href="javascript:void(0);" class="small-fab share-fab modal-trigger" data-modal="social-share{{ Hashids::connection('post')->encode($post->id) }}">
-                        <i data-feather="share-2"></i>
-                    </a>
-                </div>
-                
-                <div class="fab-wrapper is-comment">
-                    <a class="small-fab">
-                        <i data-feather="message-circle"></i>
-                    </a>
-                </div>            
             </div>
         </div>
         <!-- /Post body -->

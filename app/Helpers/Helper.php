@@ -1,13 +1,15 @@
 <?php
 namespace App\Helpers;
 
+use App\ClubPost;
+use App\Comment;
 use App\Follower;
 use App\Hoot;
 use App\Post;
-use App\User;
-use App\Comment;
+use App\ReaderClub;
 use App\TaggableTag;
 use App\TaggableTaggable;
+use App\User;
 class Helper
 {
 	public static function username($id) {
@@ -91,6 +93,27 @@ class Helper
 	{
 		$tag_name = TaggableTag::select('name')->where(['tag_id' => $id])->first();
 		return $tag_name->name;
+	}
+
+	public static function club_post_check($id)
+	{
+		$row = ClubPost::select("club_id")->where(["post_id" => $id])->first();
+		if($row != null)
+		{
+			return true;
+		}
+	}
+
+	public static function post_club_id($id)
+	{
+		$club_id = ClubPost::select("club_id")->where(["post_id" => $id])->first();
+		return $club_id->club_id;
+	}
+
+	public static function club_info($id)
+	{
+		$club_info = ReaderClub::select("*")->where(["id" => $id])->first();
+		return $club_info;
 	}
 }
 ?>

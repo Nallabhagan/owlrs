@@ -49,6 +49,15 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth','verified']], function
 
 	Route::post('update_profile_pic', 'Profile\ProfileSettingsController@profile_pic')->name('update_profile_pic');
 });
+
+Route::group(['prefix' => 'reader_club'], function () {
+	Route::get('club_list', 'ReaderClub\ClubController@index');
+	Route::get('create_club', 'ReaderClub\ClubController@create')->middleware(["auth","verified"]);
+	Route::post('create', 'ReaderClub\ClubController@save')->name('create_club');
+
+	Route::get('{slug}', 'ReaderClub\ClubListItemController@index');
+	Route::post('create_post', 'ReaderClub\ClubListItemController@save')->name('create_club_post');
+});
 //End Profile Routes
 
 
